@@ -23,8 +23,6 @@ class PersonaTestCase(unittest.TestCase):
       self.assertNotEqual(self.persona1.calcular_anio_nacimiento(True), datetime.datetime.now().year - 25 + 1)
 
 
-
-
    def test_asingacion(self):
       self.persona2.asignar_edad(28)
       self.persona2.asignar_nombre("Felipe")
