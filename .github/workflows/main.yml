@@ -32,7 +32,10 @@ jobs:
     if: ${{ contains(github.event.head_commit.message, 'release') }}
     runs-on: ubuntu-latest
     steps:
-     - name: crear-rama
-       run: |
-          git checkout -b release
-          git push -f -u origin release
+    - name: crea-rama
+      uses: peterjgrainger/action-create-branch@v2.2.0
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        branch: 'release'
+        sha: '${{ github.event.pull_request.head.sha }}'
