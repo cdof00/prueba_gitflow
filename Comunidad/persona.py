@@ -7,6 +7,7 @@ class Persona:
        self.__edad = edad
 
 # Comentario
+
    def asignar_edad(self, edad):
        self.__edad = edad
 
