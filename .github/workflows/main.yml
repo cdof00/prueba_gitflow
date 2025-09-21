@@ -32,7 +32,7 @@ jobs:
     if: ${{ contains(github.event.head_commit.message, 'release') }}
     runs-on: ubuntu-latest
     steps:
-     - name: Crear rama
+     - name: crear-rama
        run: |
           git checkout -b release
           git push -f -u origin release
