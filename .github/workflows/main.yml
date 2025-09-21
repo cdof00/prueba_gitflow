@@ -1,0 +1,38 @@
+name: crear-release
+on:
+  push:
+    branches:
+      - develop
+jobs:
+  job1:
+    name: Pruebas
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout de repositorio
+      uses: actions/checkout@v2
+    - name: Configuración de entorno de python
+      uses: actions/setup-python@v2
+      with:
+          python-version: '3.13.7'
+    - name: Instalación de librerías y dependencias
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+    - name: Correr pruebas
+      id: correr-pruebas
+      run: python -m unittest -v tests/test_persona.py
+    - name: Cálculo de cubrimiento
+      id: cubrimiento
+      run: |
+          coverage run -m unittest tests/test_persona.py
+          coverage report -m
+  crear_release:
+    name: CrearRelease
+    needs: job1
+    if: ${{ contains(github.event.head_commit.message, 'release') }}
+    runs-on: ubuntu-latest
+    steps:
+     - name: crear-rama
+       run: |
+          git checkout -b release
+          git push -f -u origin release
